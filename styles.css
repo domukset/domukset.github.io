@@ -1,0 +1,293 @@
+/* DOMUKSET BLOG
+   Minimal typewriter-style design.
+   No framework, database, or JavaScript dependency.
+*/
+
+:root {
+  --paper: #ffffff;
+  --ink: #171717;
+  --muted: #666666;
+  --line: #cfcfcf;
+  --soft-line: #e7e7e7;
+  --warning: #fff8df;
+  --warning-line: #171717;
+  --page-width: 860px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family:
+    "Courier New",
+    Courier,
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.page {
+  width: min(calc(100% - 36px), var(--page-width));
+  margin-inline: auto;
+}
+
+.site-header {
+  padding: 72px 0 44px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.kicker,
+.updated,
+.section-header h2,
+.public-note h2 {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+.site-header h1 {
+  max-width: 100%;
+  margin: 18px 0 24px;
+  font-size: clamp(2.6rem, 9vw, 6rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.065em;
+  overflow-wrap: anywhere;
+}
+
+.introduction {
+  max-width: 720px;
+  margin: 0;
+  font-size: clamp(1rem, 2.3vw, 1.25rem);
+  line-height: 1.65;
+}
+
+.updated {
+  margin-top: 32px;
+  color: var(--muted);
+}
+
+main {
+  padding: 36px 0 80px;
+}
+
+.public-note {
+  margin-bottom: 56px;
+  padding: 18px 20px;
+  border: 1px solid var(--warning-line);
+  background: var(--warning);
+}
+
+.public-note h2 {
+  margin-bottom: 8px;
+}
+
+.public-note p {
+  margin: 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--ink);
+}
+
+.section-header p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.post {
+  border-bottom: 1px solid var(--ink);
+}
+
+.post summary {
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr) 24px;
+  gap: 20px;
+  align-items: start;
+  padding: 22px 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.post summary::-webkit-details-marker {
+  display: none;
+}
+
+.post summary:hover .post-title,
+.post summary:focus-visible .post-title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.post summary:focus-visible {
+  outline: 2px dashed var(--ink);
+  outline-offset: 6px;
+}
+
+.post-date {
+  color: var(--muted);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+.post-title {
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.post-toggle {
+  font-size: 1.4rem;
+  line-height: 1;
+  text-align: right;
+}
+
+.post[open] .post-toggle {
+  transform: rotate(45deg);
+}
+
+.post-body {
+  max-width: 720px;
+  padding: 0 0 34px 138px;
+}
+
+.post-body > :first-child {
+  margin-top: 0;
+}
+
+.post-body > :last-child {
+  margin-bottom: 0;
+}
+
+.post-body p {
+  margin: 0 0 18px;
+}
+
+.photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 26px;
+}
+
+.photos figure {
+  margin: 0;
+}
+
+.photos img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--ink);
+  background: #f3f3f3;
+  object-fit: cover;
+}
+
+.photos figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.site-footer {
+  padding: 26px 0 34px;
+  border-top: 1px solid var(--ink);
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.site-footer .page {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    padding: 48px 0 34px;
+  }
+
+  main {
+    padding: 26px 0 56px;
+  }
+
+  .section-header {
+    display: block;
+  }
+
+  .section-header p {
+    margin-top: 6px;
+  }
+
+  .post summary {
+    grid-template-columns: minmax(0, 1fr) 24px;
+    gap: 8px 16px;
+    padding: 20px 0;
+  }
+
+  .post-date {
+    grid-column: 1;
+  }
+
+  .post-title {
+    grid-column: 1;
+  }
+
+  .post-toggle {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .post-body {
+    padding: 0 0 30px;
+  }
+
+  .photos {
+    grid-template-columns: 1fr;
+  }
+
+  .site-footer .page {
+    display: block;
+  }
+
+  .site-footer p + p {
+    margin-top: 8px;
+  }
+}
