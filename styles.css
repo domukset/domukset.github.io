@@ -406,3 +406,81 @@ body.lightbox-open {
     margin-top: 8px;
   }
 }
+
+/* ==========================================================
+   DARK THEME
+   ========================================================== */
+
+:root {
+  --paper: #0d0d0d;
+  --ink: #f4f4f4;
+  --muted: #aaaaaa;
+  --line: #555555;
+  --soft-line: #2d2d2d;
+  --warning: #181818;
+  --warning-line: #777777;
+}
+
+html,
+body {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.site-header,
+.site-footer {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.public-note {
+  background: var(--warning);
+  color: var(--ink);
+  border-color: var(--warning-line);
+}
+
+.section-header,
+.post {
+  border-color: var(--line);
+}
+
+.post summary {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.post summary:hover,
+.post[open] summary {
+  background: #171717;
+}
+
+.post-body {
+  color: var(--ink);
+}
+
+.post-date,
+.updated,
+.section-header p,
+.photos figcaption,
+.site-footer {
+  color: var(--muted);
+}
+
+.photos img {
+  background: #181818;
+  border-color: #777777;
+}
+
+a {
+  color: #ffffff;
+}
+
+a:hover {
+  color: #cccccc;
+}
+
+.post summary:focus-visible,
+.photos img:focus-visible {
+  outline-color: #ffffff;
+}
