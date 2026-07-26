@@ -454,5 +454,114 @@ Please see photos attached, it got quite hectic here.</p>
       <p><a href="#top">BACK TO TOP</a></p>
     </div>
   </footer>
+  
+<div
+  id="image-lightbox"
+  class="lightbox"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Expanded image"
+  hidden
+>
+  <div class="lightbox-content">
+    <button
+      id="lightbox-close"
+      class="lightbox-close"
+      type="button"
+      aria-label="Close expanded image"
+    >
+      ×
+    </button>
+
+    <img
+      id="lightbox-image"
+      class="lightbox-image"
+      src=""
+      alt=""
+    >
+
+    <p id="lightbox-caption" class="lightbox-caption"></p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const lightbox = document.getElementById("image-lightbox");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const lightboxCaption = document.getElementById("lightbox-caption");
+    const closeButton = document.getElementById("lightbox-close");
+    const postImages = document.querySelectorAll(".photos img");
+
+    let previouslyFocusedElement = null;
+
+    function openLightbox(image) {
+      previouslyFocusedElement = document.activeElement;
+
+      lightboxImage.src = image.currentSrc || image.src;
+      lightboxImage.alt = image.alt || "";
+
+      const figure = image.closest("figure");
+      const caption = figure
+        ? figure.querySelector("figcaption")
+        : null;
+
+      lightboxCaption.textContent = caption
+        ? caption.textContent
+        : image.alt || "";
+
+      lightbox.hidden = false;
+      document.body.classList.add("lightbox-open");
+      closeButton.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lightboxImage.src = "";
+      lightboxImage.alt = "";
+      lightboxCaption.textContent = "";
+
+      document.body.classList.remove("lightbox-open");
+
+      if (previouslyFocusedElement) {
+        previouslyFocusedElement.focus();
+      }
+    }
+
+    postImages.forEach(function (image) {
+      image.setAttribute("tabindex", "0");
+      image.setAttribute("role", "button");
+      image.setAttribute(
+        "aria-label",
+        "Open full-size image: " + (image.alt || "incident photo")
+      );
+
+      image.addEventListener("click", function () {
+        openLightbox(image);
+      });
+
+      image.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openLightbox(image);
+        }
+      });
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !lightbox.hidden) {
+        closeLightbox();
+      }
+    });
+  });
+</script>
+
 </body>
 </html>
