@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return caption;
     }
 
-    return "Incident photograph";
+    return "";
   }
 
   function getGroup(link) {
