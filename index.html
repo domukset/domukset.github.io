@@ -14,17 +14,12 @@
    <div class="page">
     <p class="kicker">COMMUNITY UPDATES</p>
     <h1>DOMUKSET BLOG</h1>
-    <p class="introduction">Updating residents about events taking place in our buildings. Contact 
-	<script> // delayed 
-setTimeout(function() {
+    <p class="introduction">Updating residents about events taking place in our buildings. Contact <div id="email-container">Loading email...</div></p>
+	<script>setTimeout(function() {
   const parts = ['yy', 'yq', '1c', 'ym', 'g@', 'moz', 'mai', 'l.c', 'om'];
   const email = parts.join('');
   document.getElementById('email-container').innerHTML = '<a href="mailto:' + email + '">' + email + '</a>';
-}, 1000);
-// without delay
-document.write('<div id="email-container">Loading email...</div>');
-	</script>
-	</p>
+}, 1000);</script>
 	
 <div id="email-container"></div>
     <p class="updated">LAST UPDATED: <time datetime="2026-08-05">5.8.2026</time></p>
