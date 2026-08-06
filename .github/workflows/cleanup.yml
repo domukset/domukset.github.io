@@ -1,0 +1,20 @@
+name: Clean up old workflow runs
+
+on:
+  schedule:
+    # Run daily at a specific time (e.g., 00:00 UTC). Adjust as needed.
+    - cron: '0 0 * * *'
+  # Allows you to manually trigger the workflow from the Actions tab.
+  workflow_dispatch:
+
+jobs:
+  delete-runs:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - uses: iamazeem/delete-workflow-runs-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          keep: 2
