@@ -1,20 +1,57 @@
 name: Clean up old workflow runs
 
 on:
-  schedule:
-    # Run daily at a specific time (e.g., 00:00 UTC). Adjust as needed.
-    - cron: '0 0 * * *'
-  # Allows you to manually trigger the workflow from the Actions tab.
   workflow_dispatch:
+  schedule:
+    - cron: "17 4 * * 0"
+
+permissions:
+  contents: read
+  actions: write
 
 jobs:
-  delete-runs:
+  cleanup:
     runs-on: ubuntu-latest
-    permissions:
-      actions: write
-      contents: read
+
     steps:
-      - uses: iamazeem/delete-workflow-runs-action@v1
+      - name: Delete old workflow runs
+        uses: actions/github-script@v9
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          keep: 2
+          script: |
+            const keepRuns = 5;
+
+            const runs = await github.paginate(
+              github.rest.actions.listWorkflowRunsForRepo,
+              {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                per_page: 100
+              }
+            );
+
+            const completedRuns = runs
+              .filter(run => run.status === "completed")
+              .sort(
+                (a, b) =>
+                  new Date(b.created_at) - new Date(a.created_at)
+              );
+
+            const runsToDelete = completedRuns.slice(keepRuns);
+
+            core.info(
+              `Found ${completedRuns.length} completed runs. ` +
+              `Keeping ${Math.min(keepRuns, completedRuns.length)} and ` +
+              `deleting ${runsToDelete.length}.`
+            );
+
+            for (const run of runsToDelete) {
+              core.info(
+                `Deleting run ${run.id}: ${run.name} (${run.created_at})`
+              );
+
+              await github.rest.actions.deleteWorkflowRun({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                run_id: run.id
+              });
+            }
