@@ -3,7 +3,7 @@ name: Clean up old workflow runs
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 4 * * 0"
+    - cron: "27 23 */2 * *"
 
 permissions:
   contents: read
@@ -18,7 +18,7 @@ jobs:
         uses: actions/github-script@v9
         with:
           script: |
-            const keepRuns = 5;
+            const keepRuns = 3;
 
             const runs = await github.paginate(
               github.rest.actions.listWorkflowRunsForRepo,
